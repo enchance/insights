@@ -26,11 +26,15 @@ npm run dev
 docker compose up --build
 ```
 
+This launches:
+
+- backend at http://localhost:8000
+- frontend at http://localhost:5173 (proxied to backend via VITE_API_BASE_URL)
+
 ## Structure
 ```
 backend/         # Django + DRF minimal project (insights app)
 frontend/        # React + TypeScript (Vite)
-.github/workflows/ci.yml            # GitHub Actions pipeline
 bitbucket-pipelines.yml             # Bitbucket Pipelines CI
 .pre-commit-config.yaml             # Lint/format hooks
 ```
