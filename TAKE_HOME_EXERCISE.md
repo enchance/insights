@@ -43,10 +43,8 @@ You are tasked with building a small **Investment Insights** web application usi
 
 ## 4. Deliverables
 - Source code in a Git repository.
-- `README.md` with setup instructions and architecture overview.
+- `REPORT.md` with setup instructions and architecture overview.
 - Automated tests for backend and frontend.
-- CI configuration file.
-- Optional: Docker Compose setup.
 
 ---
 
@@ -54,7 +52,7 @@ You are tasked with building a small **Investment Insights** web application usi
 - **Architecture & Code Quality**: 25%
 - **API Design & Backend Proficiency**: 25%
 - **Frontend Execution & UX**: 20%
-- **Testing Depth & CI Readiness**: 20%
+- **Testing Depth**: 20%
 - **Documentation & Developer Experience**: 10%
 
 ---
@@ -66,7 +64,7 @@ Estimated effort: **6–8 hours**. Submission within **5 days**.
 
 ## 7. Submission Instructions
 - Share a **read-only Git repository URL**.
-- Include setup instructions and any assumptions in the README.
+- Include setup instructions and any assumptions in the REPORT.
 
 ---
 
