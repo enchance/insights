@@ -35,14 +35,9 @@ You are tasked with building a small **Investment Insights** web application usi
   - Insight list with filters
   - Create/Edit insight form
   - Analytics page with a chart of top tags
-- **State Management**: React Query or Redux Toolkit.
-- **UI/UX**: Loading states, error handling, and accessibility.
+- **State Management**: React Context.
+- **UI/UX**: Loading states and error handling.
 - **Tests**: Component and integration tests.
-
-### 3.3 CI/CD & Tooling
-- **Pre-commit hooks** for linting and formatting.
-- **Docker Compose** for local development.
-- **CI Config** for GitHub Actions or Bitbucket Pipelines to run tests and linters.
 
 ---
 
@@ -89,7 +84,7 @@ Estimated effort: **6–8 hours**. Submission within **5 days**.
 POST /api/auth/login
 { "username": "alice", "password": "secret" }
 
-# List insights
+# List insights - all query string parameters are optional
 GET /api/insights?search=alpha&category=Macro&tag=Inflation&page=1&page_size=10
 
 # Create insight
