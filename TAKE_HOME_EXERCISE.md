@@ -17,27 +17,109 @@ You are tasked with building a small **Investment Insights** web application usi
 ## 3. Requirements
 
 ### 3.1 Backend (Django + DRF)
-- **Models**: `Insight` with fields: `id`, `title`, `category` (enum), `body`, `tags` (list), timestamps.
-- **Auth**: Session or token-based authentication.
-- **API Endpoints**:
-  - `POST /api/auth/login`
-  - `GET /api/insights?search=&category=&tag=`
-  - `POST /api/insights`
-  - `PUT /api/insights/:id`
-  - `DELETE /api/insights/:id`
-  - `GET /api/analytics/top-tags`
-- **Validation & Security**: Input validation, error handling, and secure defaults.
-- **Tests**: Unit tests for models/serializers and API integration tests.
+
+#### **Models:**
+**Insight Model:**
+  - `id`
+  - `title`
+  - `category`
+  - `body`
+  - `tags`
+  - `created_by`
+  - `created_at`
+  - `updated_at`
+
+#### **API Endpoints:**
+```http
+# Auth
+POST   /api/auth/login
+POST   /api/auth/logout
+
+# Insights CRUD
+GET    /api/insights?search=&category=&tag=&ordering=&page=&page_size=
+POST   /api/insights/          # Auth required
+GET    /api/insights/:id/
+PUT    /api/insights/:id/      # Owner only
+PATCH  /api/insights/:id/      # Owner only
+DELETE /api/insights/:id/      # Owner only
+
+# Analytics
+GET    /api/analytics/top-tags/
+```
+
+#### **Validation & Errors:**
+  - Title: 5-200 chars | Body: min 20 chars | Category: enum | Tags: 1-10, no duplicates
+  - Standardized error format with field-level details
+
+#### **Permissions:**
+  - List/Retrieve: Public
+  - Create: Authenticated
+  - Update/Delete: Owner only
+
+#### **Testing Requirements:**
+  - Unit tests: Models (validation, methods), Serializers (all validation rules)
+  - API tests: CRUD, auth, permissions, filtering, pagination, error cases
+  - Coverage: Minimum 80%
+
+#### **Code Quality:**
+- PEP 8 compliant (ruff/black/isort)
+ - Type hints and docstrings
+ - DRY principle (reusable validators, filters, utilities)
 
 ### 3.2 Frontend (React + TypeScript)
-- **Pages**:
+
+#### **Pages:**
   - Login page
   - Insight list with filters
   - Create/Edit insight form
   - Analytics page with a chart of top tags
-- **State Management**: React Context.
-- **UI/UX**: Loading states and error handling.
-- **Tests**: Component and integration tests.
+
+#### **State Management:**
+  - React Context
+
+#### **UI/UX:**
+  - Loading states and error handling
+
+#### **Authentication Flow:**
+  - Protected routes with redirect to login
+  - Persistent auth state
+
+#### **Forms with Validation:**
+  - Login form with email/password validation
+  - Insight create/edit form with:
+    - Real-time validation (required fields, max lengths)
+    - Multi-select or tag input for tags
+    - Category dropdown
+    - Rich text or markdown support for body (bonus)
+  - Display field-level and form-level errors
+
+#### **Error Handling:**
+  - Network error boundaries
+  - 404 handling
+  - API error messages display
+
+#### **Performance:**
+  - Pagination or infinite scroll
+  - Memoization where appropriate (useMemo, useCallback)
+  - Code splitting (lazy loading routes)
+
+#### **TypeScript:**
+  - Strict type checking
+  - Custom types/interfaces for all API responses
+  - Generic types where appropriate
+  - No 'any' types (or minimal with justification)
+
+#### **Testing Requirements:**
+- **Unit tests**:
+  - Custom hooks
+  - Utilities
+  - Helpers
+- **Component tests**:
+  - Form validation logic
+  - User interactions (click, type, submit)
+  - Conditional rendering
+  - Error states
+- **Test coverage**: Minimum 80% coverage
 
 ---
 
