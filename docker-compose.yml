@@ -13,9 +13,9 @@ services:
     develop:
       watch:
         - action: rebuild
-          path: ./Dockerfile
+          path: ./backend/Dockerfile
         - action: rebuild
-          path: ./requirements.txt
+          path: ./backend/requirements.txt
     command: bash -lc "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
 
   react:
