@@ -1,44 +1,63 @@
 
-# Investment Insights — Full-Stack Skeleton (Django + DRF + React/TS)
+# Investment Insights
 
-This is a **starter repository skeleton** for the take‑home exercise.
-It provides a minimal Django REST API and a React + TypeScript frontend,
-along with tooling for linting, testing, Docker, and CI (GitHub Actions + Bitbucket Pipelines).
+A Django REST API + React/TypeScript SPA for creating and browsing investment insights.
 
-## Quick start
+**For the sake of transparency, this is an incomplete submission.**
+
+- BACKEND: complete
+- FRONTEND: not initiated (incomplete)
+
+## Getting Started
+
+### 1. Clone the repo
 
 ```bash
-# 1) Backend
-python -m venv .venv && source .venv/bin/activate
-pip install -r backend/requirements.txt
-cp .env.example .env
-python backend/manage.py migrate
-python backend/manage.py runserver 0.0.0.0:8000
-
-# 2) Frontend
-cd frontend
-npm install
-npm run dev
+git clone <repo-url>
+cd insight-app
 ```
 
-### Docker (optional)
+### 2. Setup
+
+Create environment files
+
+```bash
+cp .env.example .env
+cp frontend/.env.example frontend/.env
+```
+
+Yarn
+
+```
+cd frontend
+corepack enable && corepack prepare yarn@stable --activate
+yarn install
+rm .yarnrc.yml
+```
+
+
+The defaults work for local development as-is. The only value you may want to change is `DJANGO_SECRET_KEY` in `.env`.
+
+### 4. Run
+
 ```bash
 docker compose up --build
 ```
 
-This launches:
+### 5. Create admin account
 
-- backend at http://localhost:8000
-- frontend at http://localhost:5173 (proxied to backend via VITE_API_BASE_URL)
-
-## Structure
-```
-backend/         # Django + DRF minimal project (insights app)
-frontend/        # React + TypeScript (Vite)
-bitbucket-pipelines.yml             # Bitbucket Pipelines CI
-.pre-commit-config.yaml             # Lint/format hooks
+```bash
+docker exec -it <backend container name> bash
+chmod +x manage.py
+./manage.py createsuperuser
 ```
 
-## Notes
-- Keep secrets out of VCS; use `.env` in local dev and CI secrets in pipelines.
-- CI jobs run lint + tests for backend & frontend.
+You can also use the POST url: `/auth/users` to create an account but for test purposes an admin account is ideal.
+Should you wish to use the url instead, please send the following information:
+
+- username
+- email
+- password
+- re_password
+
+Backend uses a custom User account (as you always should) so simply sign in using your **username**.
