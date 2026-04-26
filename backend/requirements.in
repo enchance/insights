@@ -12,6 +12,7 @@ icecream
 pytest
 pytest-sugar
 pytest-django
+pytest-cov
 Faker
 django-environ
 drf-spectacular

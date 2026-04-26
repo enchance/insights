@@ -25,8 +25,9 @@ INSTALLED_APPS = [
   "django.contrib.staticfiles",
   "rest_framework",
   "drf_spectacular",  # noqa
-  "insights",
   'authentication',
+  'django_extensions',
+  "insights",
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,8 @@ DJOSER = {
     'current_user': 'authentication.serializers.AccountSerializer',
   },
 }
+
+AUTH_USER_MODEL = 'authentication.Account'
 
 SPECTACULAR_SETTINGS = {
   "TITLE": "Insights API",

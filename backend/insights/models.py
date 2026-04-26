@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from project.mixins import DTSoftMixin
@@ -14,6 +15,7 @@ class Insight(DTSoftMixin):
   category = models.CharField(max_length=20, choices=Category.choices, db_index=True)  # noqa
   body = models.TextField()
   tags = models.JSONField(default=list)
+  owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
   def __str__(self):
     return self.title
