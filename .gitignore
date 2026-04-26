@@ -23,3 +23,6 @@ dist/
 build/
 coverage/
 backend/db.sqlite3
+
+.idea/
+.yarn/
