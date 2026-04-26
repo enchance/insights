@@ -1,0 +1,12 @@
+opencollection: 1.0.0
+info:
+  name: "Insight"
+  type: workspace
+
+collections:
+  - name: "meh"
+    path: "collections/meh"
+
+specs:
+
+docs: ''
