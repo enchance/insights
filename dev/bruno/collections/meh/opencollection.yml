@@ -1,7 +1,23 @@
 opencollection: 1.0.0
 
 info:
-  name: meh
+  name: MAIN
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzc3MjE2OTAwLCJpYXQiOjE3NzcyMDYxMDAsImp0aSI6ImRjM2JlMmM3YzI1ZjQ2M2FhYTU5YzVjNjIxYTM0NzJkIiwidXNlcl9pZCI6IjMifQ.qDvk2dCO213muujCHgG8iFe3CGRqH8M0MOzsyHdDBfE
 bundled: false
 extensions:
   bruno:

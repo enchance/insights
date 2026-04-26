@@ -1,15 +1,11 @@
-import os
 from collections import Counter
-from rest_framework import viewsets, permissions, decorators, response, generics
-from rest_framework.decorators import permission_classes
+from rest_framework import viewsets, permissions, response
 from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Insight
 from .serializers import InsightSerializer
-
-from project import ic
 
 
 class IsOwner(BasePermission):
@@ -37,8 +33,11 @@ class InsightViewSet(viewsets.ModelViewSet):
       qs = qs.filter(tags__icontains=tag)
     return qs
 
+  def perform_create(self, serializer):
+    serializer.save(owner=self.request.user)
+
   def get_permissions(self):
-    if self.action in ('create'):
+    if self.action == 'create':
       return [permissions.IsAuthenticated()]
     if self.action in ('update', 'partial_update', 'destroy'):
       return [permissions.IsAuthenticated(), IsOwner()]
@@ -56,17 +55,3 @@ class TopTagsView(APIView):
         c.update(arr)
     top = [{'name': k, 'count': v} for k, v in c.most_common(10)]
     return response.Response(top)
-
-
-class TestView(APIView):
-  permission_classes = [permissions.AllowAny]
-
-  def get(self, request):
-    try:
-      datadict = dict(title='Test', category=Insight.Category.ALTERNATIVES, body='foo here')
-      item = Insight.objects.create(**datadict)
-      ser = InsightSerializer(item)
-      return Response(ser.data)
-      raise Exception('NO ITEM')
-    except Exception as e:
-      raise

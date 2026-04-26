@@ -12,8 +12,8 @@ class InsightSerializer(serializers.ModelSerializer):
     return list(set(val))
 
   def validate_body(self, val):
-    if 10 <= len(val) <= 10_000:
-      raise serializers.ValidationError("Body must be between 10 and 1000 characters")
+    if not (10 <= len(val) <= 10_000):
+      raise serializers.ValidationError("Body must be between 10 and 10,000 characters")
     return val
 
   class Meta:

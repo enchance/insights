@@ -24,7 +24,7 @@ def run():
       account = Account.objects.create_superuser(**TEMP_SUPERUSER)
 
   ll = []
-  for _ in range(5) :
+  for _ in range(20) :
     tags = random.sample(taglist, random.randint(1, 5))
     item = Insight(title=fake.sentence(5)[:-1].title(), tags=tags, category=random.choice(categories), body=fake.text(), owner=account)
     ll.append(item)
