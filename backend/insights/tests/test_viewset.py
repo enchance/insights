@@ -16,12 +16,12 @@ VALID_PAYLOAD = {
   'tags': ['rates', 'inflation'],
 }
 
-LIST_URL = '/api/insights/'
-TOP_TAGS_URL = '/api/analytics/top-tags'
+LIST_URL = '/api/v1/insights/'
+TOP_TAGS_URL = '/api/v1/analytics/top-tags'
 
 
 def detail(pk):
-  return f'/api/insights/{pk}/'
+  return f'/api/v1/insights/{pk}/'
 
 
 @pytest.mark.django_db
