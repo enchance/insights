@@ -1,14 +1,14 @@
 import {useState} from 'react'
 import '@assets/css/styles.css';
 import {Button} from '@ui/button.tsx';
+import {RouterProvider} from 'react-router-dom';
+import routes from '@core/routes.tsx';
+
 
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl">Hello world</h1>
-      <Button>Foo</Button>
-    </>
+    <RouterProvider router={routes} />
   )
 }
 
