@@ -14,7 +14,7 @@ A Django REST API + React/TypeScript SPA for creating and browsing investment in
 
 ```bash
 git clone <repo-url>
-cd insight-app
+cd insight
 ```
 
 ### 2. Setup

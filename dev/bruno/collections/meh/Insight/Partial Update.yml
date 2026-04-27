@@ -1,17 +1,16 @@
 info:
-  name: Login
+  name: Partial Update
   type: http
-  seq: 1
+  seq: 6
 
 http:
-  method: POST
-  url: http://localhost:8000/auth/login/
+  method: PATCH
+  url: http://localhost:8000/api/v1/insights/11/
   body:
     type: json
-    data: |
+    data: |-
       {
-        "username": "foo",
-        "password": "pass123"
+        "tags": []
       }
   auth: inherit
 

@@ -9,7 +9,7 @@ class InsightSerializer(serializers.ModelSerializer):
     raise serializers.ValidationError("Title must be between 5 and 200 characters")
 
   def validate_tags(self, val):
-    return list(set(val))
+    return [i.lower() for i in set(val)]
 
   def validate_body(self, val):
     if not (10 <= len(val) <= 10_000):

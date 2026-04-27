@@ -11,7 +11,7 @@ fake = Faker()
 
 VALID_PAYLOAD = {
   'title': 'Global Rate Outlook',
-  'category': 'Macro',
+  'category': 'macro',
   'body': 'Central banks are navigating a delicate balance between inflation and growth.',
   'tags': ['rates', 'inflation'],
 }
@@ -128,27 +128,27 @@ class TestInsightDelete:
 @pytest.mark.django_db
 class TestInsightFiltering:
   def test_search_by_title(self, anon, user):
-    Insight.objects.create(title='Dollar Strength', category='Macro', body=fake.text(), tags=[], owner=user)
-    Insight.objects.create(title='Tech Earnings', category='Equities', body=fake.text(), tags=[], owner=user)
+    Insight.objects.create(title='Dollar Strength', category='macro', body=fake.text(), tags=[], owner=user)
+    Insight.objects.create(title='Tech Earnings', category='equities', body=fake.text(), tags=[], owner=user)
     resp = anon.get(LIST_URL + '?search=dollar')
     assert resp.data['count'] == 1
     assert resp.data['results'][0]['title'] == 'Dollar Strength'
 
   def test_search_is_case_insensitive(self, anon, user):
-    Insight.objects.create(title='Dollar Strength', category='Macro', body=fake.text(), tags=[], owner=user)
+    Insight.objects.create(title='Dollar Strength', category='macro', body=fake.text(), tags=[], owner=user)
     resp = anon.get(LIST_URL + '?search=DOLLAR')
     assert resp.data['count'] == 1
 
   def test_filter_by_category(self, anon, user):
-    Insight.objects.create(title='Bond Rally', category='FixedIncome', body=fake.text(), tags=[], owner=user)
-    Insight.objects.create(title='Tech Boom', category='Equities', body=fake.text(), tags=[], owner=user)
-    resp = anon.get(LIST_URL + '?category=FixedIncome')
+    Insight.objects.create(title='Bond Rally', category='fixedincome', body=fake.text(), tags=[], owner=user)
+    Insight.objects.create(title='Tech Boom', category='equities', body=fake.text(), tags=[], owner=user)
+    resp = anon.get(LIST_URL + '?category=fixedincome')
     assert resp.data['count'] == 1
     assert resp.data['results'][0]['title'] == 'Bond Rally'
 
   def test_filter_by_tag(self, anon, user):
-    Insight.objects.create(title='Rate Watch', category='Macro', body=fake.text(), tags=['rates', 'fed'], owner=user)
-    Insight.objects.create(title='Equity Pick', category='Equities', body=fake.text(), tags=['growth'], owner=user)
+    Insight.objects.create(title='Rate Watch', category='macro', body=fake.text(), tags=['rates', 'fed'], owner=user)
+    Insight.objects.create(title='Equity Pick', category='equities', body=fake.text(), tags=['growth'], owner=user)
     resp = anon.get(LIST_URL + '?tag=rates')
     assert resp.data['count'] == 1
     assert resp.data['results'][0]['title'] == 'Rate Watch'
@@ -158,9 +158,9 @@ class TestInsightFiltering:
     assert resp.data['count'] == 0
 
   def test_combined_search_and_category(self, anon, user):
-    Insight.objects.create(title='Rate Hike', category='Macro', body=fake.text(), tags=[], owner=user)
-    Insight.objects.create(title='Rate Rally', category='Equities', body=fake.text(), tags=[], owner=user)
-    resp = anon.get(LIST_URL + '?search=rate&category=Macro')
+    Insight.objects.create(title='Rate Hike', category='macro', body=fake.text(), tags=[], owner=user)
+    Insight.objects.create(title='Rate Rally', category='equities', body=fake.text(), tags=[], owner=user)
+    resp = anon.get(LIST_URL + '?search=rate&category=macro')
     assert resp.data['count'] == 1
     assert resp.data['results'][0]['title'] == 'Rate Hike'
 
@@ -213,7 +213,7 @@ class TestInsightValidation:
     assert 'category' in resp.data
 
   def test_all_valid_categories_accepted(self, auth_client):
-    for cat in ('Macro', 'Equities', 'FixedIncome', 'Alternatives'):
+    for cat in ('macro', 'equities', 'fixedincome', 'alternatives'):
       resp = auth_client.post(LIST_URL, {**VALID_PAYLOAD, 'title': f'Test {cat}', 'category': cat}, format='json')
       assert resp.status_code == 201, f'Expected 201 for category={cat}, got {resp.status_code}'
 
@@ -265,19 +265,19 @@ class TestTopTagsView:
 
   def test_capped_at_ten_entries(self, anon, user):
     tags = [f'tag{i}' for i in range(15)]
-    Insight.objects.create(title='Big', category='Macro', body=fake.text(), tags=tags, owner=user)
+    Insight.objects.create(title='Big', category='macro', body=fake.text(), tags=tags, owner=user)
     resp = anon.get(TOP_TAGS_URL)
     assert len(resp.data) <= 10
 
   def test_each_entry_has_name_and_count(self, anon, user):
-    Insight.objects.create(title='A', category='Macro', body=fake.text(), tags=['rates'], owner=user)
+    Insight.objects.create(title='A', category='macro', body=fake.text(), tags=['rates'], owner=user)
     resp = anon.get(TOP_TAGS_URL)
     entry = resp.data[0]
     assert 'name' in entry
     assert 'count' in entry
 
   def test_soft_deleted_insights_excluded(self, anon, user):
-    insight = Insight.objects.create(title='A', category='Macro', body=fake.text(), tags=['rates'], owner=user)
+    insight = Insight.objects.create(title='A', category='macro', body=fake.text(), tags=['rates'], owner=user)
     insight.delete()
     resp = anon.get(TOP_TAGS_URL)
     assert resp.data == []

@@ -1,11 +1,11 @@
 info:
-  name: Top tags
+  name: Destroy
   type: http
-  seq: 1
+  seq: 7
 
 http:
-  method: GET
-  url: http://localhost:8000/api/analytics/top-tags
+  method: DELETE
+  url: http://localhost:8000/api/v1/insights/11/
   auth: inherit
 
 settings:

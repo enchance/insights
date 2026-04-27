@@ -1,0 +1,24 @@
+info:
+  name: Update
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: http://localhost:8000/api/v1/insights/11/
+  body:
+    type: json
+    data: |
+      {
+        "title": "aaaaaaaaa2",
+        "category": "alternatives",
+        "body": "aaaaaaaaaa2",
+        "tags": ["aaa"]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

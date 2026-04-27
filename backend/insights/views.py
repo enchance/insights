@@ -20,17 +20,17 @@ class InsightViewSet(viewsets.ModelViewSet):
 
   def get_queryset(self):
     qs = super().get_queryset()
-    params = self.request.query_params;
+    params = self.request.query_params
     search = params.get('search')
     category = params.get('category')
     tag = params.get('tag')
 
     if search:
-      qs = qs.filter(title__icontains=search)
+      qs = qs.filter(title__icontains=search.lower())
     if category:
-      qs = qs.filter(category=category)
+      qs = qs.filter(category=category.lower())
     if tag:
-      qs = qs.filter(tags__icontains=tag)
+      qs = qs.filter(tags__icontains=tag.lower())
     return qs
 
   def perform_create(self, serializer):

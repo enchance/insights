@@ -21,11 +21,11 @@ def test_list_insights_returns_empty_list_initially():
 def test_create_and_filter_insight(user):
   client = APIClient()
   # anonymous cannot create
-  resp = client.post('/api/v1/insights/', {'title': 't', 'category': 'Macro', 'body': 'b', 'tags': ['Inflation']},
+  resp = client.post('/api/v1/insights/', {'title': 't', 'category': 'macro', 'body': 'b', 'tags': ['Inflation']},
                      format='json')
   assert resp.status_code in (401, 403)
 
-  Insight.objects.create(title='Alpha', category='Macro', body=fake.text(), tags=['Rates', 'CPI'], owner=user)
+  Insight.objects.create(title='Alpha', category=Insight.Category.MACRO, body=fake.text(), tags=['Rates', 'CPI'], owner=user)
   r = client.get('/api/v1/insights/?search=alp')
   assert r.status_code == 200
   assert r.data['count'] == 1
