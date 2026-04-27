@@ -3,5 +3,11 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": "./src", // To avoid adding the ./src to each path below.
+    "paths": {
+      "@/*": ["./*"],
+    }
+  }
 }

@@ -16,10 +16,27 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    /* Custom */
+      "allowUnreachableCode": true,
+      "removeComments": true,
+      "noImplicitAny": false,
+      /* Alias */
+      "baseUrl": "./src",
+      "paths": {
+        "@/*": ["./*"],
+        "@assets/*": ["assets/*"],
+        "@components/*": ["components/*"],
+        "@ui/*": ["components/ui/*"],
+        "@views/*": ["views/*"],
+        "@hooks/*": ["hooks/*"],
+        "@core/*": ["core/*"],
+        "@auth/*": ["auth/*"],
+        "@config/*": ["core/config/*"]
+      }
   },
   "include": ["src"]
 }
