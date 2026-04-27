@@ -17,3 +17,22 @@ export interface Account {
     display: string;
     avatar: string;
 }
+
+export type InsightCategory = 'macro' | 'equities' | 'fixedincome' | 'alternatives';
+
+export interface Insight {
+    id: number;
+    title: string;
+    category: InsightCategory;
+    body: string;
+    tags: string[];
+    created_at: string;
+    updated_at: string;
+}
+
+export interface PaginatedResponse<T> {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: T[];
+}

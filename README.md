@@ -3,10 +3,10 @@
 
 A Django REST API + React/TypeScript SPA for creating and browsing investment insights.
 
-**For the sake of transparency, this is an incomplete submission.**
+## Prerequisites
 
-- BACKEND: complete
-- FRONTEND: not initiated (incomplete)
+- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
+- Node.js 18+ with [corepack](https://nodejs.org/api/corepack.html) enabled
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ A Django REST API + React/TypeScript SPA for creating and browsing investment in
 
 ```bash
 git clone <repo-url>
-cd insight
+cd insights
 ```
 
 ### 2. Setup
@@ -26,30 +26,36 @@ cp .env.example .env
 cp frontend/.env.example frontend/.env
 ```
 
-Yarn
+The defaults work for local development as-is. The only value you may want to change is `DJANGO_SECRET_KEY` in `.env`.
 
-```
+Build the frontend
+
+```bash
 cd frontend
 corepack enable && corepack prepare yarn@stable --activate
 yarn install
-rm .yarnrc.yml
+yarn build
+rm .yarnrc.yml  # yarn writes this during install; removing it avoids version conflicts on re-runs
+cd ..
 ```
 
-
-The defaults work for local development as-is. The only value you may want to change is `DJANGO_SECRET_KEY` in `.env`.
-
-### 4. Run
+### 3. Run
 
 ```bash
 docker compose up --build
 ```
 
-### 5. Create admin account
+| Service  | URL                         |
+|----------|-----------------------------|
+| Frontend | http://localhost:5173        |
+| Backend  | http://localhost:8000        |
+| API Docs | http://localhost:8000/api/docs/ |
+
+### 4. Create admin account
 
 ```bash
 docker exec -it <backend container name> bash
-chmod +x manage.py
-./manage.py createsuperuser
+python manage.py createsuperuser
 ```
 
 You can also use the POST url: `/auth/users` to create an account but for test purposes an admin account is ideal.

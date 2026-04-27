@@ -1,15 +1,15 @@
-import {useState} from 'react'
 import '@assets/css/styles.css';
-import {Button} from '@ui/button.tsx';
 import {RouterProvider} from 'react-router-dom';
 import routes from '@core/routes.tsx';
-
+import {ErrorBoundary} from '@components/ErrorBoundary.tsx';
 
 
 function App() {
   return (
-    <RouterProvider router={routes} />
-  )
+    <ErrorBoundary>
+      <RouterProvider router={routes} />
+    </ErrorBoundary>
+  );
 }
 
 export default App

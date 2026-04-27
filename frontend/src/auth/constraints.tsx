@@ -1,4 +1,4 @@
-import {useAuthStore} from '@core/stores.tsx';
+import {useAuthStore} from '@core/stores.ts';
 import {Outlet} from 'react-router-dom';
 import {Navigate} from 'react-router-dom';
 import uipaths from '@config/paths.ts';

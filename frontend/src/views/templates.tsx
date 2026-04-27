@@ -1,11 +1,13 @@
-import {useEffect} from 'react';
+import {useEffect, Suspense} from 'react';
 import type {IDivProps} from '@core/types.ts';
 import {cn} from '@/lib/utils.ts';
 import {useAuth} from '@hooks/auth.tsx';
 import {FooterComp, NavbarComp} from '@components/essentials.tsx';
 import {Outlet, useNavigate} from 'react-router-dom';
-import {useAuthStore} from '@core/stores.tsx';
+import {useAuthStore} from '@core/stores.ts';
 import {useShallow} from 'zustand/react/shallow';
+import {AuthAPI} from '@core/services.ts';
+import {logoutAction} from '@auth/actions.ts';
 
 
 export const RouteWrapper = () => {
@@ -18,20 +20,23 @@ export const RouteWrapper = () => {
         // if (isAuth) setPrevPath(pathname);
     }, []);
 
-    // useEffect(() => {
-    //     if (!token) return;
-    //
-    //     // When page is forcefully refreshed. You probably want to check out loginAction
-    //     AuthAPI.fetchAccount()
-    //         .then(account => {
-    //             setAccount(account)
-    //         })
-    //         .catch(_ => logoutAction(false));
-    // }, []);
+    // @ts-ignore
+    useEffect(() => {
+        if (!token) return;
+
+        // When page is forcefully refreshed. You probably want to check out loginAction
+        AuthAPI.fetchAccount()
+            .then(account => {
+              setAccount(account)
+            })
+            .catch(_ => logoutAction(false));
+    }, []);
 
     return (
         <div id={'starter-layout'} className={`bg-background text-foreground`}>
-            <Outlet />
+            <Suspense>
+                <Outlet />
+            </Suspense>
         </div>
     );
 }

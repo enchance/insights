@@ -1,13 +1,20 @@
+import {lazy} from 'react';
 import {type RouteObject, createBrowserRouter} from 'react-router-dom';
-// import {RouteWrapper} from '@views/templates.tsx';
-// import {Error404} from '@views/error404.tsx';
 import {AuthRouteGuard, GuestRouteGuard} from '@auth/constraints.tsx';
 import {LoginPage, RegisterPage} from '@views/auth.tsx';
+import {NotFoundPage} from '@views/errors.tsx';
+
+const ListInsightsPage = lazy(() => import('@views/insights.tsx').then(m => ({default: m.ListInsightsPage})));
+const CreateInsightPage = lazy(() => import('@views/insights.tsx').then(m => ({default: m.CreateInsightPage})));
+const UpdateInsightPage = lazy(() => import('@views/insights.tsx').then(m => ({default: m.UpdateInsightPage})));
+const InsightDetailPage = lazy(() => import('@views/insights.tsx').then(m => ({default: m.InsightDetailPage})));
 import uipaths from '@config/paths.ts';
 import {RouteWrapper} from '@views/templates.tsx';
+import {HomeChooser} from '@views/home.tsx';
 
 
 const openRoutes: RouteObject[] = [
+  {path: '/insights/:id', Component: InsightDetailPage},
 ]
 
 const guestRoutes: RouteObject[] = [
@@ -16,18 +23,20 @@ const guestRoutes: RouteObject[] = [
 ]
 
 const authRoutes: RouteObject[] = [
+  {path: uipaths.insights, Component: ListInsightsPage},
+  {path: uipaths.createInsight, Component: CreateInsightPage},
+  {path: '/insights/:id/edit', Component: UpdateInsightPage},
 ]
-
-const flashRoutes: RouteObject[] = []
 
 
 const routes = createBrowserRouter([
-    {path: '/', Component: LoginPage},
+    {path: '/', Component: HomeChooser},
     {
         Component: RouteWrapper, children: [
             ...openRoutes,
             {Component: AuthRouteGuard, children: authRoutes},
             {Component: GuestRouteGuard, children: guestRoutes},
+            {path: '*', Component: NotFoundPage},
         ]
     },
 ]);

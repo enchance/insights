@@ -5,16 +5,10 @@ info:
 
 http:
   method: GET
-  url: http://localhost:8000/api/v1/insights?tag=aaa&ordering=id&page=2
+  url: http://localhost:8000/api/v1/insights?category=Alternatives
   params:
-    - name: tag
-      value: aaa
-      type: query
-    - name: ordering
-      value: id
-      type: query
-    - name: page
-      value: "2"
+    - name: category
+      value: Alternatives
       type: query
 
 settings:

@@ -10,7 +10,7 @@ class BaseSettings {
 
     // Queries
     DJANGO_URL = import.meta.env.VITE_DJANGO_URL;
-    API_V1_BASE = `${this.DJANGO_URL}/api/v1`;
+    API_V1_URL = `${this.DJANGO_URL}/api/v1`;
     STALE_TIME = 60 * 30;
 }
 

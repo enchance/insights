@@ -6,6 +6,9 @@ class UIPaths {
 
     // Insight
     insights = '/insights';
+    createInsight = '/insights/create';
+    insightDetail = (id: number | string) => `/insights/${id}`;
+    updateInsight = (id: number | string) => `/insights/${id}/edit`;
 }
 
 const uipaths = new UIPaths();

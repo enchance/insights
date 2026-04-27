@@ -1,8 +1,6 @@
 import {useShallow} from 'zustand/react/shallow';
-// import type {Account} from '@core/types.ts';
-// import {useAuthStore} from '@core/stores.ts';
 import {type Account} from '@core/types.ts';
-import {useAuthStore} from '@core/stores.tsx';
+import {useAuthStore} from '@core/stores.ts';
 
 
 type IUseAuth = { isAuth: boolean, account: Account | null };

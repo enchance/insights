@@ -18,6 +18,10 @@ class InsightViewSet(viewsets.ModelViewSet):
   serializer_class = InsightSerializer
   permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
 
+  def filter_queryset(self, qs):
+    qs = qs.filter(owner=self.request.user)
+    return qs
+
   def get_queryset(self):
     qs = super().get_queryset()
     params = self.request.query_params
